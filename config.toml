@@ -1,0 +1,241 @@
+baseURL = "https://kishore-devaraj.github.io/"
+defaultContentLanguage = "en"
+theme = "LoveIt"
+title = "Curio"
+
+enableRobotsTXT = true
+enableGitInfo = false
+enableEmoji = true
+
+[params]
+  version = "0.2.X"
+  defaultTheme = "dark"
+  # public git repo url only then enableGitInfo is true
+#  gitRepo = "https://github.com/dillonzq/LoveIt"
+  dateFormat = "02-01-2006"
+  # website images for Open Graph and Twitter Cards
+  images = ["/logo.png"]
+
+  # Header config
+  [params.header]
+    # desktop header mode ("fixed", "normal", "auto")
+    desktopMode = "fixed"
+    # mobile header mode ("fixed", "normal", "auto")
+    mobileMode = "auto"
+    # Header title config
+    [params.header.title]
+      # title name
+      name = "Curio"
+
+      # you can add extra information before the name (HTML format is supported), such as icons
+#      pre = "<i class='far fa-kiss-wink-heart fa-fw'></i>"
+      typeit = true
+
+  [menu]
+    [[menu.main]]
+      identifier = "posts"
+      # you can add extra information before the name (HTML format is supported), such as icons
+      pre = ""
+      # you can add extra information after the name (HTML format is supported), such as icons
+      post = ""
+      name = "Posts"
+      url = "/posts/"
+      # title will be shown when you hover on this menu link
+      title = ""
+      weight = 1
+    [[menu.main]]
+      identifier = "tags"
+      pre = ""
+      post = ""
+      name = "Tags"
+      url = "/tags/"
+      title = ""
+      weight = 2
+    [[menu.main]]
+      identifier = "categories"
+      pre = ""
+      post = ""
+      name = "Categories"
+      url = "/categories/"
+      title = ""
+      weight = 3
+
+  # Section (all posts) page config
+  # Section (所有文章) 页面配置
+  [params.section]
+#    paginate = 20
+    # date format (month and day)
+    dateFormat = "02-01"
+    # amount of RSS pages
+#    rss = 10
+
+  # List (category or tag) page config
+  # List (目录或标签) 页面配置
+  [params.list]
+    # special amount of posts in each list page
+#    paginate = 20
+    # date format (month and day)
+    dateFormat = "02-01"
+    # amount of RSS pages
+#    rss = 10
+
+  # Page config
+  # 文章页面配置
+  [params.page]
+    # whether to hide a page from home page
+    hiddenFromHomePage = false
+    # whether to hide a page from search results
+    hiddenFromSearch = false
+    # whether to enable twemoji
+    twemoji = false
+    # whether to enable lightgallery
+    lightgallery = false
+    # whether to enable the ruby extended syntax
+    ruby = true
+    # whether to enable the fraction extended syntax
+#    fraction = true
+    # whether to enable the fontawesome extended syntax
+    fontawesome = true
+    # whether to show link to Raw Markdown content of the content
+    linkToMarkdown = true
+    # whether to show the full text content in RSS
+#    rssFullText = false
+    # Table of the contents config
+    [params.page.toc]
+      # whether to enable the table of the contents
+      enable = false
+      # whether to keep the static table of the contents in front of the post
+#      keepStatic = false
+      # whether to make the table of the contents in the sidebar automatically collapsed
+#      auto = true
+    # Code config
+    [params.page.code]
+      # whether to show the copy button of the code block
+      copy = true
+      # the maximum number of lines of displayed code by default
+      maxShownLines = 10
+    # KaTeX mathematical formulas config (KaTeX https://katex.org/)
+    [params.page.math]
+      enable = false
+    [params.page.share]
+      enable = true
+      Twitter = true
+      Facebook = true
+      Linkedin = true
+      HackerNews = false
+      Reddit = false
+    # Comment config
+    [params.page.comment]
+      enable = false
+    [params.page.seo]
+      # Publisher info
+      [params.page.seo.publisher]
+        name = "Kishore Devaraj"
+#        [params.page.seo.publisher.logo]
+#          url = "logo.png"
+#          width = 127
+#          height = 40
+      # Logo info
+#      [params.page.seo.logo]
+#        url = "logo.png"
+#        width = 127
+#        height = 40
+      # Image info
+#      [params.page.seo.image]
+#        url = "cover.png"
+#        width = 800
+#        height = 600
+
+  # TypeIt config
+  [params.typeit]
+    # typing speed between each step (measured in milliseconds)
+    speed = 100
+    # blinking speed of the cursor (measured in milliseconds)
+    cursorSpeed = 1000
+    # character used for the cursor (HTML format is supported)
+    cursorChar = "|"
+    # cursor duration after typing finishing (measured in milliseconds, "-1" means unlimited)
+    duration = -1
+
+  # Analytics config
+  [params.analytics]
+    enable = false
+
+  # Cookie consent config
+  [params.cookieconsent]
+    enable = false
+
+  # CDN config for third-party library files
+  [params.cdn]
+    data = "jsdelivr.yml"
+
+  # Compatibility config
+  [params.compatibility]
+    # whether to use Polyfill.io to be compatible with older browsers
+    polyfill = false
+    # whether to use object-fit-images to be compatible with older browsers
+    objectFit = false
+
+# Markup related configuration in Hugo
+[markup]
+  # Syntax Highlighting (https://gohugo.io/content-management/syntax-highlighting)
+  [markup.highlight]
+    codeFences = true
+    guessSyntax = true
+    lineNos = true
+    lineNumbersInTable = true
+    # false is a necessary configuration (https://github.com/dillonzq/LoveIt/issues/158)
+    noClasses = false
+  # Goldmark is from Hugo 0.60 the default library used for Markdown
+  [markup.goldmark]
+    [markup.goldmark.extensions]
+      definitionList = true
+      footnote = true
+      linkify = true
+      strikethrough = true
+      table = true
+      taskList = true
+      typographer = true
+    [markup.goldmark.renderer]
+      # whether to use HTML tags directly in the document
+      unsafe = true
+  # Table Of Contents settings
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 6
+
+# Author config
+[author]
+  name = "Kishore Devaraj"
+  email = "kishoregrylls@gmail.com"
+  link = "https://kishore-devaraj.github.io/"
+
+# Sitemap config
+#[sitemap]
+#  changefreq = "weekly"
+#  filename = "sitemap.xml"
+#  priority = 0.5
+
+# Permalinks config (https://gohugo.io/content-management/urls/#permalinks)
+[Permalinks]
+  # posts = ":year/:month/:filename"
+  posts = ":filename"
+
+## Options to make output .md files
+#[mediaTypes]
+#  [mediaTypes."text/plain"]
+#    suffixes = ["md"]
+#
+## Options to make output .md files
+#[outputFormats.MarkDown]
+#  mediaType = "text/plain"
+#  isPlainText = true
+#  isHTML = false
+#
+## Options to make hugo output files
+#[outputs]
+#  home = ["HTML", "RSS", "JSON"]
+#  page = ["HTML", "MarkDown"]
+#  section = ["HTML", "RSS"]
+#  taxonomy = ["HTML", "RSS"]
+#  taxonomyTerm = ["HTML"]
