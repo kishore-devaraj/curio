@@ -1,2 +1,5 @@
 language: javascript
 script: ./build_deploy.sh
+branches:
+  only:
+    - develop
