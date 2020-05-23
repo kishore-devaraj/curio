@@ -6,4 +6,4 @@ test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew
 
 echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.profile
 # Install hugo
-#brew install hugo
+brew install hugo
