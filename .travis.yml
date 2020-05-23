@@ -1,5 +1,5 @@
 language: javascript
-script: ./build_deploy.sh
+script: sh ./build_deploy.sh
 branches:
   only:
     - develop
