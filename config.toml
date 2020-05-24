@@ -9,7 +9,7 @@ enableEmoji = true
 
 [params]
   version = "0.2.X"
-  defaultTheme = "dark"
+  defaultTheme = "light"
   # public git repo url only then enableGitInfo is true
 #  gitRepo = "https://github.com/dillonzq/LoveIt"
   dateFormat = "02-01-2006"
