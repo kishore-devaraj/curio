@@ -10,4 +10,8 @@ echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.profile
 brew install hugo
 
 # Generate build
+rm public/
 hugo
+
+# Push the subtree to the other branch
+git subtree push --prefix public origin gh-pages
