@@ -11,3 +11,4 @@ brew install hugo
 
 # Generate build
 hugo
+chmod 755 public/*
