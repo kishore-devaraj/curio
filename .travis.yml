@@ -2,4 +2,4 @@ language: javascript
 script: sh ./build_deploy.sh
 branches:
   only:
-    - develop
+    - master
