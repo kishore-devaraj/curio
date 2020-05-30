@@ -1,10 +1,10 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Curio</title>
-        <link>https://kishore-devaraj.github.io/</link>
+        <link>https://kishore-devaraj.github.io/curio/</link>
         <description>Curio</description>
         <generator>Hugo -- gohugo.io</generator><managingEditor>kishoregrylls@gmail.com (Kishore Devaraj)</managingEditor>
             <webMaster>kishoregrylls@gmail.com (Kishore Devaraj)</webMaster>
-            <atom:link href="https://kishore-devaraj.github.io/index.xml" rel="self" type="application/rss+xml" />
+            <atom:link href="https://kishore-devaraj.github.io/curio/index.xml" rel="self" type="application/rss+xml" />
         </channel>
 </rss>
