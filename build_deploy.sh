@@ -10,5 +10,5 @@ echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.profile
 brew install hugo
 
 # Generate build
-hugo
+hugo -D
 chmod 755 public/*
