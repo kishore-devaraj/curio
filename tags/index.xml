@@ -1,0 +1,8 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Tags - Tag - Curio</title>
+        <link>https://kishore-devaraj.github.io/tags/</link>
+        <description>Tags - Tag - Curio</description>
+        <generator>Hugo -- gohugo.io</generator><managingEditor>kishoregrylls@gmail.com (Kishore Devaraj)</managingEditor>
+            <webMaster>kishoregrylls@gmail.com (Kishore Devaraj)</webMaster><atom:link href="https://kishore-devaraj.github.io/tags/" rel="self" type="application/rss+xml" /></channel>
+</rss>
