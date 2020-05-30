@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>GoCD 101 - Curio</title><meta name="Description" content="This article gives the basic idea of Go-CD and how it works"><meta property="og:title" content="GoCD 101" />
+<meta property="og:description" content="This article gives the basic idea of Go-CD and how it works" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://kishore-devaraj.github.io/curio/gocd-101/" />
+<meta property="og:image" content="https://kishore-devaraj.github.io/images/basic-markdown-syntax/featured-image.png" />
+<meta property="article:published_time" content="2020-05-24T12:55:08+05:30" />
+<meta property="article:modified_time" content="2020-05-24T12:55:08+05:30" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://kishore-devaraj.github.io/images/basic-markdown-syntax/featured-image.png"/>
+
+<meta name="twitter:title" content="GoCD 101"/>
+<meta name="twitter:description" content="This article gives the basic idea of Go-CD and how it works"/>
+<meta name="application-name" content="Curio">
+<meta name="apple-mobile-web-app-title" content="Curio"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://kishore-devaraj.github.io/curio/gocd-101/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/curio/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "GoCD 101",
+        "inLanguage": "",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/kishore-devaraj.github.io\/curio\/gocd-101\/"
+        },"genre": "posts","keywords": "GoCD, Deployment","wordcount":  689 ,
+        "url": "https:\/\/kishore-devaraj.github.io\/curio\/gocd-101\/","datePublished": "2020-05-24T12:55:08+05:30","dateModified": "2020-05-24T12:55:08+05:30","publisher": {
+                "@type": "Organization",
+                "name": "Kishore Devaraj",
+                "logo": {
+                "@type": "ImageObject",
+                "url": "https:\/\/kishore-devaraj.github.io\/curio",
+                "width":  null ,
+                "height":  null 
+                }
+            },"author": {
+                "@type": "Person",
+                "name": "Kishore Devaraj"
+            },"description": "This article gives the basic idea of Go-CD and how it works"
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('light' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'light' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/curio/" title="Curio"><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/curio/posts/"> Posts </a><a class="menu-item" href="/curio/tags/"> Tags </a><a class="menu-item" href="/curio/categories/"> Categories </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/curio/" title="Curio"><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/curio/posts/" title="">Posts</a><a class="menu-item" href="/curio/tags/" title="">Tags</a><a class="menu-item" href="/curio/categories/" title="">Categories</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><article class="page single"><h1 class="single-title animated flipInX">GoCD 101</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://kishore-devaraj.github.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Kishore Devaraj</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="24-05-2020">24-05-2020</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;689 words&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;4 minutes&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/curio/svg/loading/normal.min.svg"
+        data-src="/curio/images/go-cd-101/go-cd-cover.svg"
+        data-srcset="/curio/images/go-cd-101/go-cd-cover.svg, /curio/images/go-cd-101/go-cd-cover.svg 1.5x, /curio/images/go-cd-101/go-cd-cover.svg 2x"
+        data-sizes="auto"
+        alt="This article gives the basic idea of Go-CD and how it works"
+        title="This article gives the basic idea of Go-CD and how it works" /></div><div class="content" id="content"><h2 id="what-is-gocd">What is GoCD?</h2>
+<p>Go-CD is the open source CI/CD server which helps the software development teams to stream line the integration and deployment
+process by providing interactive UI to configure their workflows. It comes up with wide range of features such as</p>
+<ul>
+<li>End to end visualisation</li>
+<li>Pipeline as code</li>
+<li>Build complex workflow with ease and clarity</li>
+<li>Supports both parallelization and serialization</li>
+<li>Integrations with popular cloud platform such as kubernetes, docker and AWS</li>
+</ul>
+<p>and all of them works out of box without any additional installation of plugins. GoCD follows master-slave architecture
+for communications between the components.</p>
+<h2 id="installation-and-setup">Installation and Setup</h2>
+<p>In order to run GoCD in our pipeline, we need two prominent components. <strong>go-server</strong> and <strong>go-agent</strong>.
+You can find the installation instructions of both them in the offical GoCD <a href="https://www.gocd.org/download/" target="_blank" rel="noopener noreffer">docs</a>.
+Make sure you have <em><strong>java &gt; 11</strong></em> for the latest GoCD versions. If you already have one that is lower than 11 and want
+to manage multiple java version in your system, this try this tool called <a href="https://www.jenv.be/" target="_blank" rel="noopener noreffer">jenv</a>.</p>
+<h2 id="go-server-and-go-agent">Go-Server and Go-Agent</h2>
+<p><figure><a class="lightgallery" href="/curio/images/go-cd-101/gocd-server-and-agents.svg" title="/curio/images/go-cd-101/gocd-server-and-agents.svg" data-thumbnail="/curio/images/go-cd-101/gocd-server-and-agents.svg" data-sub-html="<h2>Server and Agents</h2>">
+        <img
+            class="lazyload"
+            src="/curio/svg/loading/normal.min.svg"
+            data-src="/curio/images/go-cd-101/gocd-server-and-agents.svg"
+            data-srcset="/curio/images/go-cd-101/gocd-server-and-agents.svg, /curio/images/go-cd-101/gocd-server-and-agents.svg 1.5x, /curio/images/go-cd-101/gocd-server-and-agents.svg 2x"
+            data-sizes="auto"
+            alt="/curio/images/go-cd-101/gocd-server-and-agents.svg" width="500" />
+    </a><figcaption class="image-caption">Server and Agents</figcaption>
+    </figure>
+<br></br></p>
+<p>In the GoCD ecosystem, the server is the one that controls everything, assign the tasks and
+provides the user interface to users of the system.
+The agents are the ones that do any work (run commands, do deployments, etc) that is configured by the users.</p>
+<h2 id="main-components-in-gocd">Main components in GoCD</h2>
+<p><figure><a class="lightgallery" href="/curio/images/go-cd-101/gocd-main-components.svg" title="/curio/images/go-cd-101/gocd-main-components.svg" data-thumbnail="/curio/images/go-cd-101/gocd-main-components.svg" data-sub-html="<h2>Components in Pipeline</h2>">
+        <img
+            class="lazyload"
+            src="/curio/svg/loading/normal.min.svg"
+            data-src="/curio/images/go-cd-101/gocd-main-components.svg"
+            data-srcset="/curio/images/go-cd-101/gocd-main-components.svg, /curio/images/go-cd-101/gocd-main-components.svg 1.5x, /curio/images/go-cd-101/gocd-main-components.svg 2x"
+            data-sizes="auto"
+            alt="/curio/images/go-cd-101/gocd-main-components.svg" width="700" />
+    </a><figcaption class="image-caption">Components in Pipeline</figcaption>
+    </figure>
+<br></br></p>
+<p>From the above picture we can see there are lot of components involved in modelling the workflow, lets discuss
+from the bottom to top.</p>
+<h4 id="task">Task</h4>
+<p>The smallest unit of all is Task. A task is typically a <strong>single command</strong> configured to run as a part of the job it is in.
+Not every task needs to be a simple command, since tasks can be plugins too.
+<br></br></p>
+<h4 id="jobs">Jobs</h4>
+<p>A job is a <strong>sequential collection of tasks</strong> and each task will run one after the other in a sequential manner,
+so if a task fails, none of the tasks following that one get executed and the job is then considered to have &ldquo;failed&rdquo;.
+The most important aspect of a job is that a single agent has to pick up and finish a job.
+<br></br></p>
+<h4 id="stage">Stage</h4>
+<p>A stage is a <strong>non sequential collection of jobs</strong>.
+Different agents can pick each stage and run it parallel and so, they have to be independent of each other.
+This is where we can achieve concurrency in GoCD if we have enough agents.
+<br></br></p>
+<h4 id="pipeline">Pipeline</h4>
+<p>A pipeline is a representation of <strong>workflow or a part of a workflow</strong>.
+For instance, if you are trying to automatically run tests, build and then deploy an application to an environment
+then those steps can be modeled as a pipeline.
+<br></br></p>
+<h4 id="materials">Materials</h4>
+<p>At last there is one more component called Material which is the <strong>source and trigger point</strong> for the pipeline.
+The Material can be either a version systems (git, mercury) or even a another pipeline.
+<br></br></p>
+<h2 id="advanced-features-of-go-cd">Advanced features of GO-CD</h2>
+<h3 id="value-stream-map">Value Stream Map</h3>
+<p>Value Stream Map is another important feature of GoCD which provides <strong>end-to-end visualisation from commit to deployment</strong>.</p>
+<ul>
+<li>It provides level of <em><strong>abstraction</strong></em> in modelling, allows you to hide the underneath stuff and shows only the overall picture.</li>
+<li>Also using artifacts(output generated in a stage)and pipeline dependencies we can <em><strong>build binaries once</strong></em> and use it throughout the pipeline.</li>
+<li>It also useful when we need to trace out where exactly something went wrong.</li>
+</ul>
+<p>Following image contains the sample <em>Value Stream Map</em> of a release pipeline of an App.</p>
+<p><br></br>
+<figure><a class="lightgallery" href="/curio/images/go-cd-101/app-vsm.png" title="/curio/images/go-cd-101/app-vsm.png" data-thumbnail="/curio/images/go-cd-101/app-vsm.png" data-sub-html="<h2>Value Stream Map</h2>">
+        <img
+            class="lazyload"
+            src="/curio/svg/loading/normal.min.svg"
+            data-src="/curio/images/go-cd-101/app-vsm.png"
+            data-srcset="/curio/images/go-cd-101/app-vsm.png, /curio/images/go-cd-101/app-vsm.png 1.5x, /curio/images/go-cd-101/app-vsm.png 2x"
+            data-sizes="auto"
+            alt="/curio/images/go-cd-101/app-vsm.png" />
+    </a><figcaption class="image-caption">Value Stream Map</figcaption>
+    </figure>
+<br></br></p>
+<h3 id="fan-out-and-fan-in">Fan-Out and Fan-In</h3>
+<p>A pipeline (or material) is said to be fan-out, when this pipeline is <strong>dependency for multiple downstream pipelines</strong>.
+This brings in the advantages of parallelization and quicker feedback, which is a key goal of Continuous Delivery.
+On contradictory, a pipeline (or material) is said to be fan-in when its has <strong>multiple dependency on other upstream pipelines</strong>.
+<br></br>
+<figure><a class="lightgallery" href="/curio/images/go-cd-101/fan-out-fan-in.svg" title="/curio/images/go-cd-101/fan-out-fan-in.svg" data-thumbnail="/curio/images/go-cd-101/fan-out-fan-in.svg" data-sub-html="<h2>Fan-Out and Fan-In</h2>">
+        <img
+            class="lazyload"
+            src="/curio/svg/loading/normal.min.svg"
+            data-src="/curio/images/go-cd-101/fan-out-fan-in.svg"
+            data-srcset="/curio/images/go-cd-101/fan-out-fan-in.svg, /curio/images/go-cd-101/fan-out-fan-in.svg 1.5x, /curio/images/go-cd-101/fan-out-fan-in.svg 2x"
+            data-sizes="auto"
+            alt="/curio/images/go-cd-101/fan-out-fan-in.svg" width="600" />
+    </a><figcaption class="image-caption">Fan-Out and Fan-In</figcaption>
+    </figure></p>
+<h2 id="conclusion">Conclusion</h2>
+<p>The features we have discussed is a just a tip of an iceberg, there are so many other cool features such as <em>Pipelines as Code,
+Elastic Agent, Users and Role Management, Server Configuration</em> etc.
+You can checkout all those in <a href="https://docs.gocd.org/current/" target="_blank" rel="noopener noreffer">GoCD docs</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 24-05-2020</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://kishore-devaraj.github.io/curio/gocd-101/" data-title="GoCD 101" data-hashtags="GoCD,Deployment"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://kishore-devaraj.github.io/curio/gocd-101/" data-hashtag="GoCD"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="Share on Linkedin" data-sharer="linkedin" data-url="https://kishore-devaraj.github.io/curio/gocd-101/"><i class="fab fa-linkedin fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/curio/tags/gocd/">GoCD</a>,&nbsp;<a href="/curio/tags/deployment/">Deployment</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/curio/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.71.1">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.9"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://kishore-devaraj.github.io/" target="_blank">Kishore Devaraj</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.0/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/typeit@7.0.4/dist/typeit.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":10},"comment":{},"data":{"id-1":"Curio","id-2":"Curio"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/curio/js/theme.min.js"></script></body>
+</html>
