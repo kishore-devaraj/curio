@@ -4,19 +4,5 @@
         <link>https://kishore-devaraj.github.io/curio/tags/</link>
         <description>Tags - Tag - Curio</description>
         <generator>Hugo -- gohugo.io</generator><managingEditor>kishoregrylls@gmail.com (Kishore Devaraj)</managingEditor>
-            <webMaster>kishoregrylls@gmail.com (Kishore Devaraj)</webMaster><lastBuildDate>Sun, 24 May 2020 12:55:08 &#43;0530</lastBuildDate><atom:link href="https://kishore-devaraj.github.io/curio/tags/" rel="self" type="application/rss+xml" /><item>
-    <title>Deployment</title>
-    <link>https://kishore-devaraj.github.io/curio/tags/deployment/</link>
-    <pubDate>Sun, 24 May 2020 12:55:08 &#43;0530</pubDate>
-    <author>Author</author>
-    <guid>https://kishore-devaraj.github.io/curio/tags/deployment/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>GoCD</title>
-    <link>https://kishore-devaraj.github.io/curio/tags/gocd/</link>
-    <pubDate>Sun, 24 May 2020 12:55:08 &#43;0530</pubDate>
-    <author>Author</author>
-    <guid>https://kishore-devaraj.github.io/curio/tags/gocd/</guid>
-    <description><![CDATA[]]></description>
-</item></channel>
+            <webMaster>kishoregrylls@gmail.com (Kishore Devaraj)</webMaster><atom:link href="https://kishore-devaraj.github.io/curio/tags/" rel="self" type="application/rss+xml" /></channel>
 </rss>
