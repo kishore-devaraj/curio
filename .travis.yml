@@ -3,3 +3,12 @@ script: sh ./build_deploy.sh
 branches:
   only:
     - master
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  keep_history: true
+  local_dir: public
+  target_branch: gh-pages
+  on:
+    branch: master
