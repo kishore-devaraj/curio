@@ -14,7 +14,6 @@ enableEmoji = true
   dateFormat = "02-01-2006"
   # website images for Open Graph and Twitter Cards
   images = ["/logo.png"]
-
   # Header config
   [params.header]
     # desktop header mode ("fixed", "normal", "auto")
@@ -27,6 +26,28 @@ enableEmoji = true
       # you can add extra information before the name (HTML format is supported), such as icons
 #      pre = "<i class='far fa-kiss-wink-heart fa-fw'></i>"
       typeit = true
+
+  [params.footer]
+      enable = true
+      custom = ''
+      hugo = true
+      copyright = true
+      author = true
+      since = 2020
+      license= '<a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a>'
+
+  [params.app]
+      title = "Curio"
+      # whether to omit favicon resource links
+      noFavicon = false
+      # modern SVG favicon to use in place of older style .png and .ico files
+      svgFavicon = ""
+      # Android browser theme color
+      themeColor = "#ffffff"
+      # Safari mask icon color
+      iconColor = "#5bbad5"
+      # Windows v8-10 tile color
+      tileColor = "#da532c"
 
   [params.home.profile]
     enable = true
@@ -41,11 +62,10 @@ enableEmoji = true
     typeit = false
     social = true
   [params.social]
-    GitHub = "xxx"
-    Linkedin = "xxx"
-    Twitter = "xxxx"
-    Medium = "xxxx"
-    Stackoverflow = "xxx"
+    GitHub = "kishore-devaraj"
+    Linkedin = "kishore-devaraj"
+    Twitter = "kishoregrylls"
+    Stackoverflow = "8477549/kishore-devaraj"
     Email = "kishoregrylls@gmail.com"
   [params.section]
     # paginate = 20
@@ -83,9 +103,8 @@ enableEmoji = true
     [params.page.share]
       enable = true
       Twitter = true
-      Facebook = true
       Linkedin = true
-      HackerNews = false
+      HackerNews = true
       Reddit = false
     # Comment config
     [params.page.comment]
