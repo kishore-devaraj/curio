@@ -1,5 +1,5 @@
 ---
-title: "GoCD 101"
+title: "GoCD-101 - Free and Open Source CI/CD"
 date: 2020-05-24T12:55:08+05:30
 lastmod: 2020-03-06T21:29:01+08:00
 draft: true
@@ -112,4 +112,3 @@ width=600
 The features we have discussed is a just a tip of an iceberg, there are so many other cool features such as *Pipelines as Code,
 Elastic Agent, Users and Role Management, Server Configuration* etc.
 You can checkout all those in [GoCD docs](https://docs.gocd.org/current/)
-

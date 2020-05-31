@@ -75,7 +75,7 @@ enableEmoji = true
   # Section (all posts) page config
   # List (category or tag) page config
   [params.list]
-    dateFormat = "02-01"
+    dateFormat = "02-01-2020"
   # Page config
   [params.page]
     hiddenFromHomePage = false
