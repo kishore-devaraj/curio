@@ -58,7 +58,7 @@ enableEmoji = true
     # title shown in home page (HTML format is supported)
     title = ""
     # subtitle shown in home page
-    subtitle = "Inking and sharing things, that I found intriguing!"
+    subtitle = "Inking and Sharing things, that I found Intriguing!"
     typeit = false
     social = true
   [params.social]
@@ -75,7 +75,7 @@ enableEmoji = true
   # Section (all posts) page config
   # List (category or tag) page config
   [params.list]
-    dateFormat = "02-01-2020"
+    dateFormat = "02-01"
   # Page config
   [params.page]
     hiddenFromHomePage = false

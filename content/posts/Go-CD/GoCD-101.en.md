@@ -1,8 +1,8 @@
 ---
 title: "GoCD-101 - Free and Open Source CI/CD"
 date: 2020-05-24T12:55:08+05:30
-lastmod: 2020-03-06T21:29:01+08:00
-draft: true
+lastmod: 2020-05-30T21:29:01+08:00
+draft: false
 
 author: "Kishore Devaraj"
 description: "This article talks the basic idea of Go-CD deployment pipeline, its internal components and how it works"
@@ -11,46 +11,76 @@ tags: ["go-cd", "deployment"]
 categories: ["devops"]
 featuredImage: "/images/go-cd-101/go-cd-cover.svg"
 ---
+<!-- The following line is added to use the description, as a summary in the homepage list,
+ I know it's doesn't make much sense. But this is one of the way suggested by the theme author
+ -->
+
 <!--more-->
+<br></br>
+## A Brief Prologue
+Before diving into this article, just a short foreword on why this website was created and its motive behind it.
+For a very long time, I was planning to write down on things that I learn. But unfortunately me being a *chronic procrastinator*,
+that was a "A dream that ~~never~~(not anymore) come true".
+
+#### So what made it possible now?
+Actually, there is no single concrete reason. But the covid-19 lockdown, boredom that comes along with it,
+passion and curiosity towards tech, made this feasible. Going forward I plan write down on the things I learn.
+
+Enough of Trivia! Let jump into the article.
+
+## Introduction
+In this article, lets see what is GoCD, features it provides and its internal components, which are
+all the core concepts you need to understand before actually creating a pipeline in GoCD.
+I'm not covering how to set up pipelines, actual coding or any other practical stuffs (That would be too vast).
 
 
 ## What is GoCD?
 Go-CD is the open source CI/CD server which helps the software development teams to stream line the integration and deployment
-process by providing interactive UI to configure their workflows.
+process by providing interactive UI to configure their workflows. It was cross-platform in nature and mainly return in
+java and ruby. Initially it was a product of Thoughtworks studio and later it was open sourced. GoCD is a not another
+CI pipeline that we see on the market, it is meant for continuous delivery. Here **deployment pipeline is treated as the first
+class** citizen to avoid all the common headache we have will setup our deployments in CI.
 
 It comes up with wide range of features such as
 - End to end visualisation
 - Pipeline as code
 - Build complex workflow with ease and clarity
 - Supports both parallelization and serialization
-- Integrations with popular cloud platform such as kubernetes, docker and AWS
+- Native integrations with popular cloud platform such as kubernetes, docker and AWS
 
-and all of them works out of box without any additional installation of plugins. GoCD follows master-slave architecture
-for communications between the components.
+and all of them works out of box without any additional installation of plugins. GoCD also supports wide range of plugins to support other platforms and it's extensible in nature.
 
-## Installation and Setup
-In order to run GoCD in our pipeline, we need two prominent components. **go-server** and **go-agent**.
-You can find the installation instructions of both them in the offical GoCD [docs](https://www.gocd.org/download/).
-Make sure you have ***java > 11*** for the latest GoCD versions. If you already have one that is lower than 11 and want
-to manage multiple java version in your system, this try this tool called [jenv](https://www.jenv.be/).
+{{< admonition type=info title="Architecture Type" open=true >}}
+GoCD follows master-slave architecture for communications between the components.
+{{< /admonition >}}
+<br></br>
 
 ## Go-Server and Go-Agent
 {{< image src="/images/go-cd-101/gocd-server-and-agents.svg"
 caption="Server and Agents"
 width=500
 >}}
-<br></br>
 
-In the GoCD ecosystem, the server is the one that controls everything, assign the tasks and
-provides the user interface to users of the system.
-The agents are the ones that do any work (run commands, do deployments, etc) that is configured by the users.
+
+In the GoCD architecture, there are two main components which is bare minimum to run the GoCD pipeline.
+#### Go-Server
+- Go-server is the one that **controls everything, assign the job and provides the user interface** to users of the system.
+- User usually interacts with server to define the pipelines and tells what to run next.
+- It assigns the job to go-agent and store the artifacts once it's done.
+
+#### Go-Agent
+- The agents are the ones that **do any work (run commands, do deployments, etc)** that is configured by the users.
+- There can be 'N' number of agents each opens up a port to listen for a job from the go-server.
+- There is also concept called *'Resources'* in go-agent. Each go-agent can have a set of resource such (macOS, python, git) installed in it.
+- So whenever the user wants to run a particular task in a particular environment (say macOS), he can add plain text tag to the job.
+- The server will only allocated that job to the agent if it satisfies all the tags.
+<br></br>
 
 ## Main components in GoCD
 {{< image src="/images/go-cd-101/gocd-main-components.svg"
 caption="Components in Pipeline"
 width=700
 >}}
-<br></br>
 
 From the above picture we can see there are lot of components involved in modelling the workflow, lets discuss
 from the bottom to top.
@@ -111,4 +141,7 @@ width=600
 ## Conclusion
 The features we have discussed is a just a tip of an iceberg, there are so many other cool features such as *Pipelines as Code,
 Elastic Agent, Users and Role Management, Server Configuration* etc.
-You can checkout all those in [GoCD docs](https://docs.gocd.org/current/)
+You can checkout all those in [GoCD docs](https://docs.gocd.org/current/).
+So that's all you need to know for setting up a Go-CD pipeline.
+
+Happy Deployment!
