@@ -1,19 +1,24 @@
 ---
 title: "GoCD 101"
 date: 2020-05-24T12:55:08+05:30
+lastmod: 2020-03-06T21:29:01+08:00
 draft: true
 
 author: "Kishore Devaraj"
-description: "This article gives the basic idea of Go-CD and how it works"
-images: ["/images/basic-markdown-syntax/featured-image.png"]
+description: "This article talks the basic idea of Go-CD deployment pipeline, its internal components and how it works"
 
-tags: ["GoCD", "Deployment"]
+tags: ["go-cd", "deployment"]
+categories: ["devops"]
 featuredImage: "/images/go-cd-101/go-cd-cover.svg"
 ---
+<!--more-->
+
 
 ## What is GoCD?
 Go-CD is the open source CI/CD server which helps the software development teams to stream line the integration and deployment
-process by providing interactive UI to configure their workflows. It comes up with wide range of features such as
+process by providing interactive UI to configure their workflows.
+
+It comes up with wide range of features such as
 - End to end visualisation
 - Pipeline as code
 - Build complex workflow with ease and clarity
