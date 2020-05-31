@@ -12,8 +12,6 @@
     <guid>https://kishore-devaraj.github.io/curio/gocd-101/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="/curio/images/go-cd-101/go-cd-cover.svg" referrerpolicy="no-referrer">
-            </div><!-- The following line is added to use the description, as a summary in the homepage list,
- I know it's doesn't make much sense. But this is one of the way suggested by the theme author
- -->]]></description>
+            </div>This article talks the basics concepts of Go-CD deployment pipeline, its internal components and how it works.]]></description>
 </item></channel>
 </rss>

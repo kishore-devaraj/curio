@@ -5,18 +5,25 @@
         <description>Tags - Tag - Curio</description>
         <generator>Hugo -- gohugo.io</generator><managingEditor>kishoregrylls@gmail.com (Kishore Devaraj)</managingEditor>
             <webMaster>kishoregrylls@gmail.com (Kishore Devaraj)</webMaster><lastBuildDate>Sun, 24 May 2020 12:55:08 &#43;0530</lastBuildDate><atom:link href="https://kishore-devaraj.github.io/curio/tags/" rel="self" type="application/rss+xml" /><item>
+    <title>CD</title>
+    <link>https://kishore-devaraj.github.io/curio/tags/cd/</link>
+    <pubDate>Sun, 24 May 2020 12:55:08 &#43;0530</pubDate>
+    <author>Author</author>
+    <guid>https://kishore-devaraj.github.io/curio/tags/cd/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>CI</title>
+    <link>https://kishore-devaraj.github.io/curio/tags/ci/</link>
+    <pubDate>Sun, 24 May 2020 12:55:08 &#43;0530</pubDate>
+    <author>Author</author>
+    <guid>https://kishore-devaraj.github.io/curio/tags/ci/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
     <title>deployment</title>
     <link>https://kishore-devaraj.github.io/curio/tags/deployment/</link>
     <pubDate>Sun, 24 May 2020 12:55:08 &#43;0530</pubDate>
     <author>Author</author>
     <guid>https://kishore-devaraj.github.io/curio/tags/deployment/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>go-cd</title>
-    <link>https://kishore-devaraj.github.io/curio/tags/go-cd/</link>
-    <pubDate>Sun, 24 May 2020 12:55:08 &#43;0530</pubDate>
-    <author>Author</author>
-    <guid>https://kishore-devaraj.github.io/curio/tags/go-cd/</guid>
     <description><![CDATA[]]></description>
 </item></channel>
 </rss>
