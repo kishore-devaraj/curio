@@ -1,5 +1,5 @@
 ---
-title: "GoCD-101 - Free and Open Source CI/CD"
+title: "GoCD-101 - Internal Components"
 date: 2020-05-24T12:55:08+05:30
 lastmod: 2020-05-30T21:29:01+08:00
 draft: false
