@@ -89,4 +89,7 @@ fileignoreconfig:
 - filename: themes/LoveIt/assets/lib/fontawesome-free/all.min.css
   checksum: dfeb7081109bd02224a3a84b770dc40dba61153a7ef51354bb82a0236ae85a9a
   ignore_detectors: []
+- filename: content/posts/git/git-data-model.en.md
+  checksum: 4c990e325715201fa3381d46fd6577b84371744d3e631a4ef63decc0f37a4897
+  ignore_detectors: []
 scopeconfig: []
