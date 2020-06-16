@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Git - Internal Data Models - Curio</title><meta name="Description" content="Developers are using git every single day and but how many of them actually knows about the things happening below those fancy commands. This article will sheds us some lights on the underlying data models of git"><meta property="og:title" content="Git - Internal Data Models" />
+<meta property="og:description" content="Developers are using git every single day and but how many of them actually knows about the things happening below those fancy commands. This article will sheds us some lights on the underlying data models of git" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://kishore-devaraj.github.io/curio/git-data-model/" />
+<meta property="og:image" content="https://kishore-devaraj.github.io/logo.png"/>
+<meta property="article:published_time" content="2020-06-14T18:21:16+05:30" />
+<meta property="article:modified_time" content="2020-06-14T18:21:16+05:30" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://kishore-devaraj.github.io/logo.png"/>
+
+<meta name="twitter:title" content="Git - Internal Data Models"/>
+<meta name="twitter:description" content="Developers are using git every single day and but how many of them actually knows about the things happening below those fancy commands. This article will sheds us some lights on the underlying data models of git"/>
+<meta name="application-name" content="Curio">
+<meta name="apple-mobile-web-app-title" content="Curio"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://kishore-devaraj.github.io/curio/git-data-model/" /><link rel="prev" href="https://kishore-devaraj.github.io/curio/gocd-101/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/curio/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Git - Internal Data Models",
+        "inLanguage": "",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/kishore-devaraj.github.io\/curio\/git-data-model\/"
+        },"genre": "posts","keywords": "git, version-control","wordcount":  1741 ,
+        "url": "https:\/\/kishore-devaraj.github.io\/curio\/git-data-model\/","datePublished": "2020-06-14T18:21:16+05:30","dateModified": "2020-06-14T18:21:16+05:30","publisher": {
+                "@type": "Organization",
+                "name": "Kishore Devaraj",
+                "logo": {
+                "@type": "ImageObject",
+                "url": "https:\/\/kishore-devaraj.github.io\/curio",
+                "width":  null ,
+                "height":  null 
+                }
+            },"author": {
+                "@type": "Person",
+                "name": "Kishore Devaraj"
+            },"description": "Developers are using git every single day and but how many of them actually knows about the things happening below those fancy commands. This article will sheds us some lights on the underlying data models of git"
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('light' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'light' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/curio/" title="Curio"><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/curio/posts/"> Posts </a><a class="menu-item" href="/curio/tags/"> Tags </a><a class="menu-item" href="/curio/categories/"> Categories </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/curio/" title="Curio"><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/curio/posts/" title="">Posts</a><a class="menu-item" href="/curio/tags/" title="">Tags</a><a class="menu-item" href="/curio/categories/" title="">Categories</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Git - Internal Data Models</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://kishore-devaraj.github.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Kishore Devaraj</a></span>&nbsp;<span class="post-category">included in <a href="/curio/categories/dev-tools/"><i class="far fa-folder fa-fw"></i>dev-tools</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="14-06-2020">14-06-2020</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;1741 words&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;9 minutes&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/curio/svg/loading/normal.min.svg"
+        data-src="/curio/images/git-data-model/git-cover-600.png"
+        data-srcset="/curio/images/git-data-model/git-cover-600.png, /curio/images/git-data-model/git-cover-600.png 1.5x, /curio/images/git-data-model/git-cover-600.png 2x"
+        data-sizes="auto"
+        alt="Developers are using git every single day and but how many of them actually knows about the things happening below those fancy commands. This article will sheds us some lights on the underlying data models of git"
+        title="Developers are using git every single day and but how many of them actually knows about the things happening below those fancy commands. This article will sheds us some lights on the underlying data models of git" /></div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#gits-data-model">Git&rsquo;s Data Model</a>
+      <ul>
+        <li><a href="#blob">Blob</a></li>
+        <li><a href="#trees">Trees</a></li>
+        <li><a href="#commit">Commit</a></li>
+        <li><a href="#objects-and-addressing">Objects and Addressing</a></li>
+        <li><a href="#references">References</a></li>
+        <li><a href="#modelling-history">Modelling History</a></li>
+      </ul>
+    </li>
+    <li><a href="#summary">Summary</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><!-- The above line is added to use the description, as a summary in the homepage list,
+ I know it's doesn't make much sense. But this is one of the way suggested by the theme author
+ -->
+<p><br></br>
+When I started my developer career, I was not aware of version control systems. I used to send codes in a
+compressed format (with date and some version name as a filename) to other folks who happens to be new
+recruits as well (Silly us :P). Then one fine day, one of my senior colleague introduced to me a tool so called &ldquo;Git&rdquo;.</p>
+<p>Initially I&rsquo;m not aware of its significances, not completely impressed, but finally managed to learn some common
+commands for my day-to-day works. The following meme exactly tells my story!</p>
+<p><br></br>
+<figure><a class="lightgallery" href="/curio/images/git-data-model/git-intro.png" title="/curio/images/git-data-model/git-intro.png" data-thumbnail="/curio/images/git-data-model/git-intro.png" data-sub-html="<h2>Meme on git</h2>">
+        <img
+            class="lazyload"
+            src="/curio/svg/loading/normal.min.svg"
+            data-src="/curio/images/git-data-model/git-intro.png"
+            data-srcset="/curio/images/git-data-model/git-intro.png, /curio/images/git-data-model/git-intro.png 1.5x, /curio/images/git-data-model/git-intro.png 2x"
+            data-sizes="auto"
+            alt="/curio/images/git-data-model/git-intro.png" width="300" />
+    </a><figcaption class="image-caption">Meme on git</figcaption>
+    </figure></p>
+<!-- Add the image here -->
+<p>Fast forward to 2020, I&rsquo;ve broadened my knowledge on git commands and its usage, but still felt I&rsquo;m missing something.</p>
+<ul>
+<li>How does git manages the history?</li>
+<li>What happens when I make a commit?</li>
+<li>Does git takes a copy of my entire working directory for every commit I make?</li>
+<li>If so, how does memory management works as the time goes?</li>
+</ul>
+<p>All these questions arbitrarily pops up in my mind. So I decided to sit down, dig out a bit more about the internals of git
+and write down a short blog on the things I have learnt on this subject. So here we go!</p>
+<h2 id="gits-data-model">Git&rsquo;s Data Model</h2>
+<p>Git models the history of a collection of files and folders within some top-level directory as a series of snapshots.
+A snapshot is nothing but a complete capture (state of folder and files) of our working directory at a given time.</p>
+<p>In Git terminology,</p>
+<ul>
+<li>A file is called a <strong>&ldquo;blob&rdquo;</strong>, and it&rsquo;s just a bunch of bytes.</li>
+<li>A directory is called a <strong>&ldquo;tree&rdquo;</strong>, and it maps names to blobs or trees (so directories can contain other directories).</li>
+<li>A snapshot is the &ldquo;top-level tree&rdquo; (<strong>commit</strong>) that is being tracked. For example, we might have a tree as follows:</li>
+</ul>
+<figure><a class="lightgallery" href="/curio/images/git-data-model/git-snapshot-tree.png" title="/curio/images/git-data-model/git-snapshot-tree.png" data-thumbnail="/curio/images/git-data-model/git-snapshot-tree.png" data-sub-html="<h2>Top-level tree</h2>">
+        <img
+            class="lazyload"
+            src="/curio/svg/loading/normal.min.svg"
+            data-src="/curio/images/git-data-model/git-snapshot-tree.png"
+            data-srcset="/curio/images/git-data-model/git-snapshot-tree.png, /curio/images/git-data-model/git-snapshot-tree.png 1.5x, /curio/images/git-data-model/git-snapshot-tree.png 2x"
+            data-sizes="auto"
+            alt="/curio/images/git-data-model/git-snapshot-tree.png" width="500" />
+    </a><figcaption class="image-caption">Top-level tree</figcaption>
+    </figure>
+<p>The top-level tree contains two elements, a tree &ldquo;foo&rdquo; (that itself contains one element, a blob &ldquo;bar.txt&rdquo;), and a blob &ldquo;baz.txt&rdquo;.
+Now let&rsquo;s dive into three main components (blob, tree and commit) in git for managing data.
+All other git functionalities are built on top of this.</p>
+<figure><a class="lightgallery" href="/curio/images/git-data-model/git-data-model-pseudocode.png" title="/curio/images/git-data-model/git-data-model-pseudocode.png" data-thumbnail="/curio/images/git-data-model/git-data-model-pseudocode.png" data-sub-html="<h2>Data models as pseudocode</h2>">
+        <img
+            class="lazyload"
+            src="/curio/svg/loading/normal.min.svg"
+            data-src="/curio/images/git-data-model/git-data-model-pseudocode.png"
+            data-srcset="/curio/images/git-data-model/git-data-model-pseudocode.png, /curio/images/git-data-model/git-data-model-pseudocode.png 1.5x, /curio/images/git-data-model/git-data-model-pseudocode.png 2x"
+            data-sizes="auto"
+            alt="/curio/images/git-data-model/git-data-model-pseudocode.png" width="500" />
+    </a><figcaption class="image-caption">Data models as pseudocode</figcaption>
+    </figure>
+<h3 id="blob">Blob</h3>
+<p>Lets start with some hands on. Create a directory and add a file to it</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ mkdir -p ~/example-repo
+$ cd ~/example-repo
+$ echo &#34;Hello Git!&#34; &gt; foo.txt
+</code></pre></td></tr></table>
+</div>
+</div><p>I haven&rsquo;t initialised it as a git repo yet. but still i can try some git commands to know what&rsquo;s going on.
+First I want to know what <code>hash_id</code> git is going to store my <code>foo.txt</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ git hash-object foo.txt
+9f4d96d5b00d98959ea9960f069585ce42b1349a
+</code></pre></td></tr></table>
+</div>
+</div><p>If you run this command on your system, you’ll get the same hash_id (as long as content is same).
+Lets try something more!</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ echo &#34;Hello Git!&#34; &gt; new_foo.txt
+$ git hash-object foo.txt
+9f4d96d5b00d98959ea9960f069585ce42b1349a
+</code></pre></td></tr></table>
+</div>
+</div><p>As you can see I created a new file named <code>new_foo.txt</code> but I added the same content to this file.
+Although the file name was different, the hash_id returned is same. <strong>So in git the <code>hash_id</code> is same
+for the same content regardless of filename, created_time, author or machines</strong> (because no metadata about
+the file will be stored in the blob). This type of behaviour is called as pure function,local reasoning or
+deterministic algorithm in various programming paradigm.</p>
+<p>The next step is to initialize a new repository and commit the file into it.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ git init
+$ git add foo.txt
+$ git commit -m &#34;Add foo.txt&#34;
+</code></pre></td></tr></table>
+</div>
+</div><p>At this point our blob should be in the system exactly as we expected, using the hash id determined above.
+As a convenience, Git requires only as many digits of the hash id as are necessary to uniquely identify it
+within the repository. Usually just six or seven digits is enough:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ git cat-file -t 9f4d96d
+blob
+$ git cat-file blob 9f4d96d
+Hello Git!
+</code></pre></td></tr></table>
+</div>
+</div><p>I haven’t even looked at which commit holds it, or what tree it’s in,
+but solely on the hash_id it generated and there it is!
+In this way, a Git blob represents the fundamental data unit in Git.
+Really, the whole system is about blob management.</p>
+<h3 id="trees">Trees</h3>
+<p>Trees in a git are directories which holds another tree or a blob. The tree in git is <code>Map</code> which contains
+the name of the tree as a key and its contents in the value.</p>
+<p>Blob by itself is featureless, it doesn&rsquo;t have a name or any structure. In git, to represent the structure,
+blobs are connected as leaf nodes to the tree. We cannot find the parent tree of the blob from the hash_id
+of the blob, because there are lot other trees may use the same blob (same content in different file in different
+directory). But we know it exists in some tree within the previous commit</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ git ls-tree HEAD
+100644 blob 9f4d96d5b00d98959ea9960f069585ce42b1349a	foo.txt
+</code></pre></td></tr></table>
+</div>
+</div><p>Ah! the first commit we made has a tree with a single blob as a leaf node. But still we can&rsquo;t find the tree
+hash_id. Okay let&rsquo;s start from top-down approach staring with commit</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ git cat-file -p HEAD
+tree b520dbc38b14eadb4b82ca010bbb1c9d5b792d30
+author Kishore Devaraj &lt;my-email@domain.com&gt; 1592152207 +0530
+committer Kishore Devaraj &lt;my-email@domain.com&gt; 1592152207 +0530
+Add foo.txt
+
+$ git cat-file -p b520dbc38b14eadb4b82ca010bbb1c9d5b792d30
+100644 blob 9f4d96d5b00d98959ea9960f069585ce42b1349a	foo.txt
+</code></pre></td></tr></table>
+</div>
+</div><p>There it is! our blob <code>foo.txt</code> is hanging at tree <code>b520dbc</code>.</p>
+<h3 id="commit">Commit</h3>
+<p>Commit aka &ldquo;Snapshot&rdquo; is the one which determines what are the changes happened to our working directory,
+creates a tree and attaches a blob to it. Every commit has one tree and also contain metadata about that
+particular commit.</p>
+<p>I&rsquo;m sure all git users will agree that they used <code>git add &lt;file_name&gt; &amp; git push</code> way more than any
+other git command. But how many of us know what really happens behind the scenes. Lets understand it by
+using some low-level git apis. Let&rsquo;s start from the scratch again.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ rm -rf .git foo.txt new_foo.txt
+$ echo &#34;Hello Git!&#34; &gt; foo.txt
+$ git init
+$ git add foo.txt
+</code></pre></td></tr></table>
+</div>
+</div><p>The last command <code>git add &lt;file_name&gt;</code> is the place where we actually tell the git, that something
+has changed and we want to capture it by adding it to the index. We still haven&rsquo;t created the tree or commit
+to take a snapshot of this change. But this is the place where the blob are created from the file.
+Lets visualize it!</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ git ls-files
+foo.txt
+$ git ls-files --stage
+100644 9f4d96d5b00d98959ea9960f069585ce42b1349a 0	foo.txt
+</code></pre></td></tr></table>
+</div>
+</div><p>When we index <code>foo.txt</code> file, it has already created a blob for that. Now we need a tree
+to hang hold of this blob.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ git write-tree
+b520dbc38b14eadb4b82ca010bbb1c9d5b792d30
+</code></pre></td></tr></table>
+</div>
+</div><p>The above command will a create a tree and attach all the indexed files (in our case <code>foo.txt</code>) to it.
+Now we need create a commit and assign this tree to it.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ echo &#34;Initial commit&#34; | git commit-tree b520dbc
+46435f06298416a6667d13e7d9fd775462dd3f11
+</code></pre></td></tr></table>
+</div>
+</div><p>The raw <code>commit-tree</code> command will create a commit using the tree provided in args. You can also specify
+the parent of this commit by passing the <code>-p</code> option. But still we have update the master refs to
+point this commit and HEAD to point master.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ git update-ref refs/heads/master 46435f0
+$ git symbolic-ref HEAD refs/heads/master
+</code></pre></td></tr></table>
+</div>
+</div><p>Finally we made the commit and updated the refs accordingly!</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ git log
+commit 46435f06298416a6667d13e7d9fd775462dd3f11 (HEAD -&gt; master)
+Author: Kishore Devaraj &lt;my-email@domain.com&gt;
+Date:   Tue Jun 16 22:38:37 2020 +0530
+
+Initial commit
+</code></pre></td></tr></table>
+</div>
+</div><p>So we created a blob, tree and a commit in my repository. But how do we verify it?
+There is a command to do that.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ find .git/objects -type f | sort
+.git/objects/46/435f06298416a6667d13e7d9fd775462dd3f11
+.git/objects/9f/4d96d5b00d98959ea9960f069585ce42b1349a
+.git/objects/b5/20dbc38b14eadb4b82ca010bbb1c9d5b792d30
+
+$ git cat-file -t 46435f06298416a6667d13e7d9fd775462dd3f11
+commit
+$ git cat-file -t 9f4d96d5b00d98959ea9960f069585ce42b1349a
+blob
+$ git cat-file -t b520dbc38b14eadb4b82ca010bbb1c9d5b792d30
+tree
+</code></pre></td></tr></table>
+</div>
+</div><p>As expected we have three objects in our repository and their types are mentioned above.
+But wait, did I say <code>objects</code>? But we haven&rsquo;t talked about it before.</p>
+<h3 id="objects-and-addressing">Objects and Addressing</h3>
+<p>In git, objects can be &lsquo;blob, tree or commit&rsquo; and all these three are unified in this way.
+Objects are referenced by the <code>SHA-1</code> hash.</p>
+<figure><a class="lightgallery" href="/curio/images/git-data-model/git-objects.png" title="/curio/images/git-data-model/git-objects.png" data-thumbnail="/curio/images/git-data-model/git-objects.png" data-sub-html="<h2>Git object as pseudocode</h2>">
+        <img
+            class="lazyload"
+            src="/curio/svg/loading/normal.min.svg"
+            data-src="/curio/images/git-data-model/git-objects.png"
+            data-srcset="/curio/images/git-data-model/git-objects.png, /curio/images/git-data-model/git-objects.png 1.5x, /curio/images/git-data-model/git-objects.png 2x"
+            data-sizes="auto"
+            alt="/curio/images/git-data-model/git-objects.png" width="500" />
+    </a><figcaption class="image-caption">Git object as pseudocode</figcaption>
+    </figure>
+<p>Using this <code>hash_id</code>, one object refers the other. But we have to keep in mind that those
+are just pointers to the objects rather than then object itself. For instance in our current working tree
+lets <code>cat-file</code> the tree that we have created.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ git cat-file -p b520dbc38b14eadb4b82ca010bbb1c9d5b792d30
+100644 blob 9f4d96d5b00d98959ea9960f069585ce42b1349a	foo.txt
+
+$ git cat-file 9f4d96d5b00d98959ea9960f069585ce42b1349a
+Hello Git
+</code></pre></td></tr></table>
+</div>
+</div><p>Here the tree (and commit) doesn&rsquo;t contain the actual blob but the reference (hash_id) to that particular blob.
+But we check blob reference we can get the actual content.</p>
+<h3 id="references">References</h3>
+<p>Now, all snapshots can be identified by their SHA-1 hash.
+That&rsquo;s inconvenient, because humans aren&rsquo;t good at remembering strings of
+40 hexadecimal characters (or any long random numbers).</p>
+<p>Git&rsquo;s solution to this problem is human-readable names for SHA-1 hashes, called “references”.
+References are pointers to commits. Unlike objects, which are immutable,
+references are mutable (can be updated to point to a new commit).</p>
+<p>For example, the master reference usually points to the latest commit in the main branch of development.
+Similarly in our order to find out where we currently are git has a special reference called <code>HEAD</code>.</p>
+<div class="details admonition info open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw"></i>Info<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">The term &lsquo;master&rsquo; or &lsquo;development&rsquo; is not a actually a branch but merely a reference to a commit which will
+be updated on successful commits.</div>
+        </div>
+    </div>
+<h3 id="modelling-history">Modelling History</h3>
+<p>A history would be a list of snapshots in time-order. How should a version control system relate snapshots?
+We can use simple linear history. But for many reasons, Git doesn&rsquo;t use this. Instead git history is
+directed cyclic graph (DAG) of snapshots.</p>
+<!-- Link the DAG -->
+<p>I know that&rsquo;s one fancy jargon, but all it means is snapshot can have a set of parents (more than one), because
+a snapshot can descend from multiple parents (Merging). But in case of linear history it can have at most of one parent
+(Ex: Google docs)</p>
+<p><br></br>
+<figure><a class="lightgallery" href="/curio/images/git-data-model/git-snapshot-history.png" title="/curio/images/git-data-model/git-snapshot-history.png" data-thumbnail="/curio/images/git-data-model/git-snapshot-history.png" data-sub-html="<h2>Snapshot pointing to their parents</h2>">
+        <img
+            class="lazyload"
+            src="/curio/svg/loading/normal.min.svg"
+            data-src="/curio/images/git-data-model/git-snapshot-history.png"
+            data-srcset="/curio/images/git-data-model/git-snapshot-history.png, /curio/images/git-data-model/git-snapshot-history.png 1.5x, /curio/images/git-data-model/git-snapshot-history.png 2x"
+            data-sizes="auto"
+            alt="/curio/images/git-data-model/git-snapshot-history.png" width="500" />
+    </a><figcaption class="image-caption">Snapshot pointing to their parents</figcaption>
+    </figure></p>
+<h2 id="summary">Summary</h2>
+<p>To summarize, <strong>Git uses objects and references as a data model and all the commands we use are basically
+creating objects and creating/updating references and maintains the snapshot using the special type of graph
+data structure.</strong></p>
+<p><br></br>
+Caio! :)</p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 14-06-2020</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://kishore-devaraj.github.io/curio/git-data-model/" data-title="Git - Internal Data Models" data-via="kishoregrylls" data-hashtags="git,version-control"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="Share on Linkedin" data-sharer="linkedin" data-url="https://kishore-devaraj.github.io/curio/git-data-model/"><i class="fab fa-linkedin fa-fw"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://kishore-devaraj.github.io/curio/git-data-model/" data-title="Git - Internal Data Models"><i class="fab fa-hacker-news fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/curio/tags/git/">git</a>,&nbsp;<a href="/curio/tags/version-control/">version-control</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/curio/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/curio/gocd-101/" class="prev" rel="prev" title="GoCD-101 - Internal Components"><i class="fas fa-angle-left fa-fw"></i>GoCD-101 - Internal Components</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.72.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.9"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://kishore-devaraj.github.io/" target="_blank">Kishore Devaraj</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.0/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/typeit@7.0.4/dist/typeit.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":10},"comment":{},"data":{"id-1":"Curio","id-2":"Curio"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/curio/js/theme.min.js"></script></body>
+</html>

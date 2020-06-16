@@ -1,0 +1,17 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>dev-tools - Category - Curio</title>
+        <link>https://kishore-devaraj.github.io/curio/categories/dev-tools/</link>
+        <description>dev-tools - Category - Curio</description>
+        <generator>Hugo -- gohugo.io</generator><managingEditor>kishoregrylls@gmail.com (Kishore Devaraj)</managingEditor>
+            <webMaster>kishoregrylls@gmail.com (Kishore Devaraj)</webMaster><lastBuildDate>Sun, 14 Jun 2020 18:21:16 &#43;0530</lastBuildDate><atom:link href="https://kishore-devaraj.github.io/curio/categories/dev-tools/" rel="self" type="application/rss+xml" /><item>
+    <title>Git - Internal Data Models</title>
+    <link>https://kishore-devaraj.github.io/curio/git-data-model/</link>
+    <pubDate>Sun, 14 Jun 2020 18:21:16 &#43;0530</pubDate>
+    <author>Author</author>
+    <guid>https://kishore-devaraj.github.io/curio/git-data-model/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/curio/images/git-data-model/git-cover-600.png" referrerpolicy="no-referrer">
+            </div>Developers are using git every single day and but how many of them actually knows about the things happening below those fancy commands. This article will sheds us some lights on the underlying data models of git]]></description>
+</item></channel>
+</rss>
