@@ -24,7 +24,7 @@ compressed format (with date and some version name as a filename) to other folks
 recruits as well (Silly us :P). Then one fine day, one of my senior colleague introduced to me a tool so called "Git".
 
 Initially I'm not aware of its significances, not completely impressed, but finally managed to learn some common
-commands for my day-to-day works. The following meme exactly tells my story!
+commands for my day-to-day works. The following meme exactly tells my story during those days!
 
 <br></br>
 {{<image src="/images/git-data-model/git-intro.png"
@@ -58,7 +58,7 @@ width=500
 >}}
 
 The top-level tree contains two elements, a tree "foo" (that itself contains one element, a blob "bar.txt"), and a blob "baz.txt".
-Now let's dive into three main components (blob, tree and commit) in git for managing data.
+Now let's dive into three main components **(blob, tree and commit)** in git for managing data.
 All other git functionalities are built on top of this.
 
 {{<image src="/images/git-data-model/git-data-model-pseudocode.png"
@@ -87,7 +87,7 @@ $ echo "Hello Git!" > new_foo.txt
 $ git hash-object foo.txt
 9f4d96d5b00d98959ea9960f069585ce42b1349a
 ```
-As you can see I created a new file named `new_foo.txt` but I added the same content to this file.
+As you can see I created a new file named `new_foo.txt` but added the same content to this file.
 Although the file name was different, the hash_id returned is same. **So in git the `hash_id` is same
 for the same content regardless of filename, created_time, author or machines** (because no metadata about
 the file will be stored in the blob). This type of behaviour is called as pure function,local reasoning or
@@ -110,9 +110,9 @@ $ git cat-file blob 9f4d96d
 Hello Git!
 ```
 
-I haven’t even looked at which commit holds it, or what tree it’s in,
+I haven’t even looked at which commit holds this blob, or what tree it’s in,
 but solely on the hash_id it generated and there it is!
-In this way, a Git blob represents the fundamental data unit in Git.
+In this way, a **blob represents the fundamental data unit in Git**.
 Really, the whole system is about blob management.
 
 ### Trees
@@ -225,11 +225,11 @@ tree
 ```
 
 As expected we have three objects in our repository and their types are mentioned above.
-But wait, did I say `objects`? But we haven't talked about it before.
+But wait, did I say `objects`? Have we talked about it before?
 
 ### Objects and Addressing
-In git, objects can be 'blob, tree or commit' and all these three are unified in this way.
-Objects are referenced by the `SHA-1` hash.
+In git, `Object` can be 'blob, tree or commit' and all these three are stored as object in an Map<string, string>
+Objects are referenced by the `SHA-1` hash and the value of that is the corresponding object.
 
 {{<image src="/images/git-data-model/git-objects.png"
 caption="Git object as pseudocode"
@@ -248,7 +248,7 @@ $ git cat-file 9f4d96d5b00d98959ea9960f069585ce42b1349a
 Hello Git
 ```
 Here the tree (and commit) doesn't contain the actual blob but the reference (hash_id) to that particular blob.
-But we check blob reference we can get the actual content.
+But we check blob reference we will get the actual content.
 
 
 ### References
@@ -264,14 +264,14 @@ For example, the master reference usually points to the latest commit in the mai
 Similarly in our order to find out where we currently are git has a special reference called `HEAD`.
 
 {{< admonition type=info title="Info" open=true >}}
-The term 'master' or 'development' is not a actually a branch but merely a reference to a commit which will
+The term 'master' or 'development' is not a actually a branch name but merely a reference to a commit which will
 be updated on successful commits.
 {{< /admonition >}}
 
 ### Modelling History
 A history would be a list of snapshots in time-order. How should a version control system relate snapshots?
 We can use simple linear history. But for many reasons, Git doesn't use this. Instead git history is
-directed cyclic graph (DAG) of snapshots.
+**Directed acyclic graph (DAG)** of snapshots.
 <!-- Link the DAG -->
 
 I know that's one fancy jargon, but all it means is snapshot can have a set of parents (more than one), because
