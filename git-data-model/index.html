@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/kishore-devaraj.github.io\/curio\/git-data-model\/"
-        },"genre": "posts","keywords": "git, version-control","wordcount":  1741 ,
+        },"genre": "posts","keywords": "git, version-control","wordcount":  1755 ,
         "url": "https:\/\/kishore-devaraj.github.io\/curio\/git-data-model\/","datePublished": "2020-06-14T18:21:16+05:30","dateModified": "2020-06-14T18:21:16+05:30","publisher": {
                 "@type": "Organization",
                 "name": "Kishore Devaraj",
@@ -86,7 +86,7 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Git - Internal Data Models</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://kishore-devaraj.github.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Kishore Devaraj</a></span>&nbsp;<span class="post-category">included in <a href="/curio/categories/dev-tools/"><i class="far fa-folder fa-fw"></i>dev-tools</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="14-06-2020">14-06-2020</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;1741 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="14-06-2020">14-06-2020</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;1755 words&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;9 minutes&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
@@ -123,7 +123,7 @@ When I started my developer career, I was not aware of version control systems. 
 compressed format (with date and some version name as a filename) to other folks who happens to be new
 recruits as well (Silly us :P). Then one fine day, one of my senior colleague introduced to me a tool so called &ldquo;Git&rdquo;.</p>
 <p>Initially I&rsquo;m not aware of its significances, not completely impressed, but finally managed to learn some common
-commands for my day-to-day works. The following meme exactly tells my story!</p>
+commands for my day-to-day works. The following meme exactly tells my story during those days!</p>
 <p><br></br>
 <figure><a class="lightgallery" href="/curio/images/git-data-model/git-intro.png" title="/curio/images/git-data-model/git-intro.png" data-thumbnail="/curio/images/git-data-model/git-intro.png" data-sub-html="<h2>Meme on git</h2>">
         <img
@@ -165,7 +165,7 @@ A snapshot is nothing but a complete capture (state of folder and files) of our 
     </a><figcaption class="image-caption">Top-level tree</figcaption>
     </figure>
 <p>The top-level tree contains two elements, a tree &ldquo;foo&rdquo; (that itself contains one element, a blob &ldquo;bar.txt&rdquo;), and a blob &ldquo;baz.txt&rdquo;.
-Now let&rsquo;s dive into three main components (blob, tree and commit) in git for managing data.
+Now let&rsquo;s dive into three main components <strong>(blob, tree and commit)</strong> in git for managing data.
 All other git functionalities are built on top of this.</p>
 <figure><a class="lightgallery" href="/curio/images/git-data-model/git-data-model-pseudocode.png" title="/curio/images/git-data-model/git-data-model-pseudocode.png" data-thumbnail="/curio/images/git-data-model/git-data-model-pseudocode.png" data-sub-html="<h2>Data models as pseudocode</h2>">
         <img
@@ -217,7 +217,7 @@ $ git hash-object foo.txt
 9f4d96d5b00d98959ea9960f069585ce42b1349a
 </code></pre></td></tr></table>
 </div>
-</div><p>As you can see I created a new file named <code>new_foo.txt</code> but I added the same content to this file.
+</div><p>As you can see I created a new file named <code>new_foo.txt</code> but added the same content to this file.
 Although the file name was different, the hash_id returned is same. <strong>So in git the <code>hash_id</code> is same
 for the same content regardless of filename, created_time, author or machines</strong> (because no metadata about
 the file will be stored in the blob). This type of behaviour is called as pure function,local reasoning or
@@ -252,9 +252,9 @@ $ git cat-file blob 9f4d96d
 Hello Git!
 </code></pre></td></tr></table>
 </div>
-</div><p>I haven’t even looked at which commit holds it, or what tree it’s in,
+</div><p>I haven’t even looked at which commit holds this blob, or what tree it’s in,
 but solely on the hash_id it generated and there it is!
-In this way, a Git blob represents the fundamental data unit in Git.
+In this way, a <strong>blob represents the fundamental data unit in Git</strong>.
 Really, the whole system is about blob management.</p>
 <h3 id="trees">Trees</h3>
 <p>Trees in a git are directories which holds another tree or a blob. The tree in git is <code>Map</code> which contains
@@ -424,10 +424,10 @@ tree
 </code></pre></td></tr></table>
 </div>
 </div><p>As expected we have three objects in our repository and their types are mentioned above.
-But wait, did I say <code>objects</code>? But we haven&rsquo;t talked about it before.</p>
+But wait, did I say <code>objects</code>? Have we talked about it before?</p>
 <h3 id="objects-and-addressing">Objects and Addressing</h3>
-<p>In git, objects can be &lsquo;blob, tree or commit&rsquo; and all these three are unified in this way.
-Objects are referenced by the <code>SHA-1</code> hash.</p>
+<p>In git, <code>Object</code> can be &lsquo;blob, tree or commit&rsquo; and all these three are stored as object in an Map&lt;string, string&gt;
+Objects are referenced by the <code>SHA-1</code> hash and the value of that is the corresponding object.</p>
 <figure><a class="lightgallery" href="/curio/images/git-data-model/git-objects.png" title="/curio/images/git-data-model/git-objects.png" data-thumbnail="/curio/images/git-data-model/git-objects.png" data-sub-html="<h2>Git object as pseudocode</h2>">
         <img
             class="lazyload"
@@ -458,7 +458,7 @@ Hello Git
 </code></pre></td></tr></table>
 </div>
 </div><p>Here the tree (and commit) doesn&rsquo;t contain the actual blob but the reference (hash_id) to that particular blob.
-But we check blob reference we can get the actual content.</p>
+But we check blob reference we will get the actual content.</p>
 <h3 id="references">References</h3>
 <p>Now, all snapshots can be identified by their SHA-1 hash.
 That&rsquo;s inconvenient, because humans aren&rsquo;t good at remembering strings of
@@ -473,14 +473,14 @@ Similarly in our order to find out where we currently are git has a special refe
             <i class="icon fas fa-info-circle fa-fw"></i>Info<i class="details-icon fas fa-angle-right fa-fw"></i>
         </div>
         <div class="details-content">
-            <div class="admonition-content">The term &lsquo;master&rsquo; or &lsquo;development&rsquo; is not a actually a branch but merely a reference to a commit which will
+            <div class="admonition-content">The term &lsquo;master&rsquo; or &lsquo;development&rsquo; is not a actually a branch name but merely a reference to a commit which will
 be updated on successful commits.</div>
         </div>
     </div>
 <h3 id="modelling-history">Modelling History</h3>
 <p>A history would be a list of snapshots in time-order. How should a version control system relate snapshots?
 We can use simple linear history. But for many reasons, Git doesn&rsquo;t use this. Instead git history is
-directed cyclic graph (DAG) of snapshots.</p>
+<strong>Directed acyclic graph (DAG)</strong> of snapshots.</p>
 <!-- Link the DAG -->
 <p>I know that&rsquo;s one fancy jargon, but all it means is snapshot can have a set of parents (more than one), because
 a snapshot can descend from multiple parents (Merging). But in case of linear history it can have at most of one parent
