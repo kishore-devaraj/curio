@@ -150,8 +150,8 @@ creates a tree and attaches a blob to it. Every commit has one tree and also con
 particular commit.
 
 I'm sure all git users will agree that they used `git add <file_name> & git push` way more than any
-other git command. But how many of us know what really happens behind the scenes. Lets understand it by
-using some low-level git apis. Let's start from the scratch again.
+other git command. Let understand the workflow behind this by using some **low-level git apis**.
+Let's start from the scratch again.
 
 ```
 $ rm -rf .git foo.txt new_foo.txt
