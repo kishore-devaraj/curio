@@ -290,6 +290,8 @@ To summarize, **Git uses objects and references as a data model and all the comm
 creating objects and creating/updating references and maintains the snapshot using the special type of graph
 data structure.**
 
+Next time, when you are typing a `git command`, try to visualize all the changes that goes under the hood!
 <br></br>
-Caio! :)
+
+Till then, Caio! :)
 
