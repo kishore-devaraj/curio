@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/kishore-devaraj.github.io\/curio\/git-data-model\/"
-        },"genre": "posts","keywords": "git, version-control","wordcount":  1777 ,
+        },"genre": "posts","keywords": "git, version-control","wordcount":  1768 ,
         "url": "https:\/\/kishore-devaraj.github.io\/curio\/git-data-model\/","datePublished": "2020-06-14T18:21:16+05:30","dateModified": "2020-06-14T18:21:16+05:30","publisher": {
                 "@type": "Organization",
                 "name": "Kishore Devaraj",
@@ -86,7 +86,7 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Git - Internal Data Models</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://kishore-devaraj.github.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Kishore Devaraj</a></span>&nbsp;<span class="post-category">included in <a href="/curio/categories/dev-tools/"><i class="far fa-folder fa-fw"></i>dev-tools</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="14-06-2020">14-06-2020</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;1777 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="14-06-2020">14-06-2020</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;1768 words&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;9 minutes&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
@@ -303,8 +303,8 @@ $ git cat-file -p b520dbc38b14eadb4b82ca010bbb1c9d5b792d30
 creates a tree and attaches a blob to it. Every commit has one tree and also contain metadata about that
 particular commit.</p>
 <p>I&rsquo;m sure all git users will agree that they used <code>git add &lt;file_name&gt; &amp; git push</code> way more than any
-other git command. But how many of us know what really happens behind the scenes. Lets understand it by
-using some low-level git apis. Let&rsquo;s start from the scratch again.</p>
+other git command. Let understand the workflow behind this by using some <strong>low-level git apis</strong>.
+Let&rsquo;s start from the scratch again.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
