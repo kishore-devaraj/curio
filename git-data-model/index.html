@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/kishore-devaraj.github.io\/curio\/git-data-model\/"
-        },"genre": "posts","keywords": "git, version-control","wordcount":  1768 ,
+        },"genre": "posts","keywords": "git, version-control","wordcount":  1772 ,
         "url": "https:\/\/kishore-devaraj.github.io\/curio\/git-data-model\/","datePublished": "2020-06-14T18:21:16+05:30","dateModified": "2020-06-14T18:21:16+05:30","publisher": {
                 "@type": "Organization",
                 "name": "Kishore Devaraj",
@@ -86,7 +86,7 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Git - Internal Data Models</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://kishore-devaraj.github.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Kishore Devaraj</a></span>&nbsp;<span class="post-category">included in <a href="/curio/categories/dev-tools/"><i class="far fa-folder fa-fw"></i>dev-tools</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="14-06-2020">14-06-2020</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;1768 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="14-06-2020">14-06-2020</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;1772 words&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;9 minutes&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
@@ -213,7 +213,7 @@ Lets try something more!</p>
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-fallback" data-lang="fallback">$ echo &#34;Hello Git!&#34; &gt; new_foo.txt
-$ git hash-object foo.txt
+$ git hash-object new_foo.txt
 9f4d96d5b00d98959ea9960f069585ce42b1349a
 </code></pre></td></tr></table>
 </div>
@@ -349,8 +349,8 @@ to hang hold of this blob.</p>
 b520dbc38b14eadb4b82ca010bbb1c9d5b792d30
 </code></pre></td></tr></table>
 </div>
-</div><p>The above command will a create a tree and attach all the indexed files (in our case <code>foo.txt</code>) to it.
-Now we need create a commit and assign this tree to it.</p>
+</div><p>The above command will create a tree and attach all the indexed files (in our case <code>foo.txt</code>) to it.
+Now we need to create a commit and assign this tree to it.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -362,8 +362,8 @@ Now we need create a commit and assign this tree to it.</p>
 </code></pre></td></tr></table>
 </div>
 </div><p>The raw <code>commit-tree</code> command will create a commit using the tree provided in args. You can also specify
-the parent of this commit by passing the <code>-p</code> option. But still we have update the master refs to
-point this commit and HEAD to point master.</p>
+the parent of this commit by passing the <code>-p</code> option. Still we have few things pending, we have update the
+master refs to point this commit and HEAD to point master.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
