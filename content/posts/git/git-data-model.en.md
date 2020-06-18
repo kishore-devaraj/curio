@@ -84,7 +84,7 @@ Lets try something more!
 
 ```
 $ echo "Hello Git!" > new_foo.txt
-$ git hash-object foo.txt
+$ git hash-object new_foo.txt
 9f4d96d5b00d98959ea9960f069585ce42b1349a
 ```
 As you can see I created a new file named `new_foo.txt` but added the same content to this file.
@@ -180,8 +180,8 @@ $ git write-tree
 b520dbc38b14eadb4b82ca010bbb1c9d5b792d30
 ```
 
-The above command will a create a tree and attach all the indexed files (in our case `foo.txt`) to it.
-Now we need create a commit and assign this tree to it.
+The above command will create a tree and attach all the indexed files (in our case `foo.txt`) to it.
+Now we need to create a commit and assign this tree to it.
 
 ```
 $ echo "Initial commit" | git commit-tree b520dbc
@@ -189,8 +189,8 @@ $ echo "Initial commit" | git commit-tree b520dbc
 ```
 
 The raw `commit-tree` command will create a commit using the tree provided in args. You can also specify
-the parent of this commit by passing the `-p` option. But still we have update the master refs to
-point this commit and HEAD to point master.
+the parent of this commit by passing the `-p` option. Still we have few things pending, we have update the
+master refs to point this commit and HEAD to point master.
 
 ```
 $ git update-ref refs/heads/master 46435f0
